@@ -24,6 +24,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,7 +128,6 @@ public class FavoritePane extends AnchorPane {
         vBox.getChildren().addAll(new HBox(field, clear), controlContainer);
         vBox.setPadding(new Insets(0, 0, 30, 0));
 
-        Label totalFavorites = new Label("Всего в избранном: " + allFavorites.size());
         root.setTop(new VBox(vBox));
 
         root.getStyleClass().add("main-pane");
@@ -209,11 +210,12 @@ public class FavoritePane extends AnchorPane {
         }));
     }
 
-    private FavoriteVideo copyCard(FavoriteVideo videoCard) {
+    @Contract("_ -> new")
+    private @NonNull FavoriteVideo copyCard(@NonNull FavoriteVideo videoCard) {
         return new FavoriteVideo(videoCard.getCardId(), videoCard.getTitle(), videoCard.getUrl(), videoCard.getPic(), videoCard.getDuration(), videoCard.getViews(), videoCard.getRating(), videoCard.getInfo(), videoCard.isFavorite(), videoCard.getGroup());
     }
 
-    private void addFavoriteGroup(String name, HBox groupsBox) {
+    private void addFavoriteGroup(String name, @NonNull HBox groupsBox) {
         ToggleButton button = new ToggleButton(name);
         button.getStyleClass().add("favorite-user-toggle");
         button.setToggleGroup(userGroups);
@@ -239,7 +241,7 @@ public class FavoritePane extends AnchorPane {
         setupDnDToButton(button, name);
     }
 
-    private MenuItem getMenuItem(String name, HBox groupsBox, ToggleButton button) {
+    private @NonNull MenuItem getMenuItem(String name, HBox groupsBox, ToggleButton button) {
         MenuItem delete = new MenuItem("Удалить");
         delete.setOnAction(e -> {
             FavoriteGroupProvider.removeGroup(name);
@@ -254,7 +256,7 @@ public class FavoritePane extends AnchorPane {
         return delete;
     }
 
-    private void setupDnDToButton(ToggleButton button, String group) {
+    private void setupDnDToButton(@NonNull ToggleButton button, String group) {
         button.setOnDragOver(event -> {
             if (event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
@@ -280,11 +282,11 @@ public class FavoritePane extends AnchorPane {
                     if (videoGroup.equals(group)) {
                         return;
                     }
-                    if (containsId(videoId, groups.computeIfAbsent(group, s -> new CopyOnWriteArrayList<>()))) {
-                        return;
-                    }
-                    pane.getChildren().remove(video);
-                    groups.computeIfAbsent(videoGroup, s -> new CopyOnWriteArrayList<>()).remove(video);
+//                    if (containsId(videoId, groups.computeIfAbsent(group, s -> new CopyOnWriteArrayList<>()))) {
+//                        return;
+//                    }
+//                    pane.getChildren().remove(video);
+//                    groups.computeIfAbsent(videoGroup, s -> new CopyOnWriteArrayList<>()).remove(video);
                 }
 
                 FavoriteVideos.update("mark", group, videoId);
