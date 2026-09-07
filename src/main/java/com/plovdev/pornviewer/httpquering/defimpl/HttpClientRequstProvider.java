@@ -37,7 +37,7 @@ public class HttpClientRequstProvider implements PornRequestProvider {
                 return response.body();
             }
         } catch (Exception e) {
-            log.error("Request error: ", e);
+            log.error("Request error: {}", e.getMessage());
         }
         return "";
     }
@@ -50,7 +50,7 @@ public class HttpClientRequstProvider implements PornRequestProvider {
                 return response.body();
             }
         } catch (Exception e) {
-            log.error("Error to request porn: ", e);
+            log.error("Error to request porn: {}", e.getMessage());
         }
         return new byte[0];
     }
@@ -68,7 +68,7 @@ public class HttpClientRequstProvider implements PornRequestProvider {
                 return response.body();
             }
         } catch (Exception e) {
-            log.error("Error to request stream: ", e);
+            log.error("Error to request stream: {}", e.getMessage());
         }
 
         return InputStream.nullInputStream();

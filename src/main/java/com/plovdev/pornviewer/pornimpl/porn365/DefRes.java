@@ -5,7 +5,7 @@ import com.plovdev.pornviewer.httpquering.Resourcer;
 import java.util.List;
 
 public class DefRes implements Resourcer {
-    public static final String BASE = "http://9porno365.run";
+    public static final String BASE = "http://1porno365.fun";
 
     @Override
     public String baseUrl() {

@@ -18,10 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -81,7 +78,16 @@ public class DownloadsPane extends AnchorPane {
         clear.setOnMousePressed(e -> field.setText(""));
         clear.getStyleClass().add("clear-search");
 
-        vBox.getChildren().addAll(new HBox(field, clear), new HBox(30, new VBox(10, box1, box3), new VBox(10, box4, box6), r1));
+        Button importVideo = new Button("I");
+        importVideo.getStyleClass().add("categories");
+
+        importVideo.setOnAction(a -> {
+
+        });
+
+        Region free = new Region();
+        HBox.setHgrow(free, Priority.ALWAYS);
+        vBox.getChildren().addAll(new HBox(field, clear, free, importVideo), new HBox(30, new VBox(10, box1, box3), new VBox(10, box4, box6), r1));
         vBox.setPadding(new Insets(0, 0, 30, 0));
         root.setTop(new VBox(vBox));
 

@@ -5,6 +5,7 @@ import com.plovdev.pornviewer.models.FavoriteVideo;
 import com.plovdev.pornviewer.models.VideoCard;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -102,7 +103,10 @@ public class VideoPlyer extends StackPane {
 
         // Инициализация таймера скрытия
         hideTimer = new PauseTransition(Duration.seconds(3));
-        hideTimer.setOnFinished(event -> content.setVisible(false));
+        hideTimer.setOnFinished(event -> {
+            content.setVisible(false);
+            this.setCursor(Cursor.NONE);
+        });
 
         setup();
 
@@ -208,6 +212,7 @@ public class VideoPlyer extends StackPane {
     }
 
     private void resetHideTimer() {
+        this.setCursor(Cursor.DEFAULT);
         hideTimer.stop();
         hideTimer.playFromStart();
         content.setVisible(true);
@@ -235,6 +240,7 @@ public class VideoPlyer extends StackPane {
             mediaPlayer.seek(time);
             resetHideTimer();
         });
+        this.setCursor(Cursor.NONE);
     }
 
     public void play() {
