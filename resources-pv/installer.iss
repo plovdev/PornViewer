@@ -1,13 +1,13 @@
 [Setup]
 AppName=PornViewer
-AppVersion=1.7.9.2
+AppVersion=1.7.13
 DefaultDirName={pf}\PornViewer
 DefaultGroupName=PornViewer
 UninstallDisplayIcon={app}\PornViewer.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\installer
-OutputBaseFilename=PornViewer-1.7.9.2
+OutputBaseFilename=PornViewer-1.7.13
 PrivilegesRequired=admin
 LicenseFile=..\files\LICENSE.txt
 SetupIconFile=..\files\PornViewer.ico
