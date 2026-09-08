@@ -141,7 +141,7 @@ public class OkHttpRequestProvider implements PornRequestProvider {
                 .readTimeout(config.readTimeout(), TimeUnit.MILLISECONDS)
                 .writeTimeout(config.writeTimeout(), TimeUnit.MILLISECONDS)
                 .followRedirects(true)
-                .retryOnConnectionFailure(config.retryPolicy() == RetryPolicy.ON_FAILED || config.retryPolicy() == RetryPolicy.ALWAYS)
+                .retryOnConnectionFailure(config.retryPolicy() == RetryPolicy.ON_FAILED)
                 .cookieJar(new CookieJar() {
                     private final Map<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
