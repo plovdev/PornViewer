@@ -6,7 +6,7 @@ import com.plovdev.pornviewer.core.utils.Globals;
 import com.plovdev.pornviewer.server.exceptions.PornViewerServerException;
 import com.plovdev.pornviewer.server.handlers.AppInfoHandler;
 import com.plovdev.pornviewer.server.handlers.ExportHandler;
-import com.plovdev.pornviewer.server.handlers.PluginsHandler;
+import com.plovdev.pornviewer.server.handlers.plugins.PluginsHandler;
 import com.plovdev.pornviewer.server.handlers.WatchHandler;
 import com.plovdev.pornviewer.services.files.ConfigReader;
 import com.sun.net.httpserver.HttpServer;

@@ -19,6 +19,7 @@ public class PluginsProvider {
 
     private static final String DROP_TABLE = "DROP TABLE plugins";
     private static final String SELECT_ALL = "SELECT * FROM plugins";
+    private static final String CONTAINS_ADAPTER = "SELECT EXISTS(SELECT 1 FROM plugins WHERE system_plugin_id = ?)";
     private static final String INSERT_OR_REPLACE = "INSERT OR REPLACE INTO plugins (plugin_id, system_pligin_id, developer_id, title, version, description, author, author_page, license, homepage, image_str, min_app_version, max_app_version, build_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_WHERE_PLUGIN_ID = "DELETE FROM plugins WHERE system_plugin_id = ?";
     private static final String SELECT_WHERE_PLUGIN_ID = "SELECT * FROM plugins WHERE system_plugin_id = ?";
@@ -115,6 +116,26 @@ public class PluginsProvider {
         } catch (SQLException e) {
             log.error("Error to add adapter: {} - {}", info.pluginId(), e.getMessage());
         }
+    }
+
+    public static boolean containsAdapter(String systemPluginId) {
+        checkConnection();
+
+        try (PreparedStatement pstmt = con.prepareStatement(CONTAINS_ADAPTER)) {
+            pstmt.setString(1, systemPluginId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    boolean exists = rs.getBoolean(1);
+                    if (exists) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            log.error("Error to check contains plugin: ", e);
+        }
+
+        return false;
     }
 
     public synchronized static void removeAdapter(String systemPluginId) {

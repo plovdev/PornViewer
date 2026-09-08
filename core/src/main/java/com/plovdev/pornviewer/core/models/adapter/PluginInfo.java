@@ -28,4 +28,10 @@ public record PluginInfo(@NonNull String pluginId,
         Objects.requireNonNull(version);
         Objects.requireNonNull(description);
     }
+
+    public PluginInfo(@NonNull String pluginId, @NonNull String systemPluginId, @NonNull String developerId, @NonNull String title, @NonNull String version, @NonNull String description, @Nullable String author, String authorPage, String license, String homepage, String imageString, int minAppVersion, int maxAppVersion, int buildId) {
+        this(pluginId, systemPluginId, developerId, title, version, description, author,
+                authorPage == null ? null : URI.create(authorPage), license == null ? null : URI.create(license), homepage == null ? null : URI.create(homepage),
+                imageString, minAppVersion, maxAppVersion, buildId);
+    }
 }

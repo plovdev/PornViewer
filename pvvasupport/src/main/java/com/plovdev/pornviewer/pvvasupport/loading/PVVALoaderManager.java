@@ -33,7 +33,11 @@ public final class PVVALoaderManager {
 
     private static PVVAHost directlyLoadHost(String pluginId) {
         PluginInfo info = PluginsProvider.getAdapterById(pluginId);
-        return PLUGIN_LOADER.loadFromDisk(pluginId, PVFileManager.getPvAdapterPath(info.systemPluginId()));
+        return PLUGIN_LOADER.loadFromDisk(pluginId, PVFileManager.getPvPluginPath(info.systemPluginId()));
+    }
+
+    public static void directlyLoadHost(PVVAHost host) {
+        CACHED_ADAPTERS.put(host.getSystemPluginId(), host);
     }
 
     public static PVVAHost forceAdapter(String pluginId) {

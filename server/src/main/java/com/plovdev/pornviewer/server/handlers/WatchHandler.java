@@ -28,7 +28,7 @@ public class WatchHandler extends AbstractServerHandler {
 
     @Override
     protected void onRequest(HttpExchange exchange, URI uri, HttpMethod method, Map<String, Object> params) throws IOException {
-        String requestedWatchPart = getWatchPath(uri);
+        String requestedWatchPart = RequetUtils.getRequestedPath("watch", uri);
         if (requestedWatchPart.equals(WATCH_VIDEO)) {
             File requestedFile = RequetUtils.checkFile(exchange, (String) params.get("file"));
             VideoRequestSet requestSet = VideoRequestsCache.getRequestSet(requestedFile);
@@ -81,11 +81,6 @@ public class WatchHandler extends AbstractServerHandler {
         try (BufferedOutputStream os = new BufferedOutputStream(exchange.getResponseBody())) {
             VideoWatchHelper.transferEncryptedStream(requestedFile, requestSet, params.realStart(), contentLength, os);
         }
-    }
-
-    private @NonNull String getWatchPath(@NonNull URI uri) {
-        String uriStr = uri.toString();
-        return uriStr.substring("/watch/".length(), uriStr.indexOf("?"));
     }
 
     @Override

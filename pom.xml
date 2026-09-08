@@ -54,7 +54,7 @@
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <pvva.version>1.8</pvva.version>
+        <pvva.version>1.9</pvva.version>
         <eda.version>1.1</eda.version>
 
         <caffeine.version>3.2.4</caffeine.version>

@@ -28,12 +28,16 @@ public final class ServerSendsUtils {
         }
     }
 
-    public static void sendJson(@NonNull HttpExchange exchange, String msg) throws IOException {
+    public static void sendRawJson(@NonNull HttpExchange exchange, String msg) throws IOException {
         sendMessage(exchange, 200, msg);
     }
 
+    public static void send200(@NonNull HttpExchange exchange, String msg) throws IOException {
+        sendMessage(exchange, 200, new BasicServerResponse(200, msg));
+    }
+
     public static void send400(@NonNull HttpExchange exchange, String msg) throws IOException {
-        sendMessage(exchange, 400, new BasicServerResponse(409, msg));
+        sendMessage(exchange, 400, new BasicServerResponse(400, msg));
     }
 
     public static void send401(@NonNull HttpExchange exchange) throws IOException {
@@ -42,6 +46,10 @@ public final class ServerSendsUtils {
 
     public static void send403(@NonNull HttpExchange exchange) throws IOException {
         sendMessage(exchange, 403, new BasicServerResponse(403, "Access Denied"));
+    }
+
+    public static void send404(@NonNull HttpExchange exchange, String msg) throws IOException {
+        sendMessage(exchange, 404, new BasicServerResponse(404, msg));
     }
 
     public static void send405(@NonNull HttpExchange exchange) throws IOException {

@@ -34,7 +34,7 @@ public class PluginLoaderImpl implements PluginLoader {
                 PluginJson pluginJson = host.pluginJson();
                 checkLoadedHost(new SignaturePluginVerifier(pluginJson.developerId()), host, pluginData);
 
-                PluginsUtils.saveDownloadedPlugin(pluginId, pluginData);
+                PluginsUtils.saveDownloadedPlugin(pluginId, host, pluginData);
                 return host;
             }
         } catch (Exception e) {

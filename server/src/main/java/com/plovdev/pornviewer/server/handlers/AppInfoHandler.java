@@ -19,7 +19,7 @@ public class AppInfoHandler extends AbstractServerHandler {
     @Override
     protected void onRequest(HttpExchange exchange, URI uri, HttpMethod method, Map<String, Object> params) throws IOException {
         String appInfoStr = cachedAppInfo.updateAndGet(currentValue -> Objects.requireNonNullElseGet(currentValue, () -> JSONSerializer.serialize(ConfigReader.loadAppInfo())));
-        ServerSendsUtils.sendJson(exchange, appInfoStr);
+        ServerSendsUtils.sendRawJson(exchange, appInfoStr);
     }
 
     @Override

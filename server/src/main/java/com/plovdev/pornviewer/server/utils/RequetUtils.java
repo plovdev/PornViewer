@@ -22,6 +22,7 @@ import javax.crypto.Cipher;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -61,6 +62,11 @@ public class RequetUtils {
         long realContentSize = header.plainVideoSize();
 
         return new CalculatedVideoParams(header.mime(), start, end, metadataSize, videoStart, encVideoLength, realStart, realEnd, contentLength, realContentSize);
+    }
+
+    public static @NonNull String getRequestedPath(String pathName, @NonNull URI uri) {
+        String uriStr = uri.toString();
+        return uriStr.substring(("/" + pathName + "/").length(), uriStr.indexOf("?"));
     }
 
     public static @NonNull VideoRequestSet loadEncryptedVideo(File file) {

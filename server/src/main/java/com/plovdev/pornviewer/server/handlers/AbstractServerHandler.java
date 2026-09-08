@@ -32,13 +32,8 @@ public abstract class AbstractServerHandler implements HttpHandler {
 
             if (!getSupportedMethods().contains(method)) {
                 log.warn("Method {} not allowed here", method);
-                if (method == HttpMethod.HEAD) {
-                    exchange.sendResponseHeaders(405, -1);
-                    exchange.close();
-                } else {
-                    ServerSendsUtils.send405(exchange);
-                    exchange.close();
-                }
+                ServerSendsUtils.send405(exchange);
+                exchange.close();
                 return;
             }
 
@@ -48,6 +43,7 @@ public abstract class AbstractServerHandler implements HttpHandler {
                 if (authorization == null || authorization.isBlank()) {
                     log.warn("Authorization is empty.");
                     ServerSendsUtils.send401(exchange);
+                    exchange.close();
                 } else {
                     UUID authToken = UUID.fromString(authorization);
                     if (Globals.APP_ACCESS_TOKEN.equals(authToken)) {
@@ -60,18 +56,23 @@ public abstract class AbstractServerHandler implements HttpHandler {
                         } else {
                             body = uri.toString();
                         }
+                        // REQUEST HANDLER
                         onRequest(exchange, uri, method, HttpUtils.parseResponseBody(method, body));
+                        // REQUEST HANDLER
                     } else {
                         ServerSendsUtils.send403(exchange);
+                        exchange.close();
                     }
                 }
             } else {
                 ServerSendsUtils.send401(exchange);
+                exchange.close();
             }
         } catch (Exception e) {
             log.error("Error process request: ", e);
             try {
                 ServerSendsUtils.send500(exchange);
+                exchange.close();
             } catch (IOException ex) {
                 throw new PornViewerServerException(ex);
             }

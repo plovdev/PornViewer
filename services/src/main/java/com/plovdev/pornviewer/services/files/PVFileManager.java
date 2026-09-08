@@ -22,8 +22,12 @@ public record PVFileManager() {
         return PV_BASE_PATH;
     }
 
-    public static @NonNull Path getPvAdapterPath(String systemPluginId) {
+    public static @NonNull Path getPvPluginPath(String systemPluginId) {
         return PV_PLUGINS_PATH.resolve(systemPluginId + ".pvva");
+    }
+
+    public static @NonNull Path getPvPluginsPath() {
+        return PV_PLUGINS_PATH;
     }
 
     @NotNull
