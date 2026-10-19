@@ -39,7 +39,7 @@ public class PornDownloader {
         this.requestProvider = provider;
     }
 
-    public synchronized CompletableFuture<DownloadedVideoInfo> startDownload(long plainVideoSize, FullVideoInfo info, byte[] videoPreview) {
+    public CompletableFuture<DownloadedVideoInfo> startDownload(long plainVideoSize, FullVideoInfo info, byte[] videoPreview) {
         return CompletableFuture.supplyAsync(() -> {
             // hashing file name
             String hashedName = DigestUtils.sha256(info.videoUri().toString());
