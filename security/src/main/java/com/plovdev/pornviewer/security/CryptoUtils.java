@@ -63,7 +63,7 @@ public class CryptoUtils {
         return new IvParameterSpec(nonce);
     }
 
-    public static void createRandomPassword(byte[] toWrite) {
+    public static void fillRandomBytes(byte[] toWrite) {
         SECURE_RANDOM.nextBytes(toWrite);
     }
 }

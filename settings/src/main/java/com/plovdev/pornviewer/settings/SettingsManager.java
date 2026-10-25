@@ -5,13 +5,10 @@ import com.plovdev.pornviewer.services.exceptions.SettingsLoadingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class SettingsManager {
     private static final Logger log = LoggerFactory.getLogger(SettingsManager.class);
-    private final AtomicBoolean isInited = new AtomicBoolean(false);
-    private final AtomicReference<AppSettings> settingsRef = new AtomicReference<>();
+    private volatile boolean isInited = false;
+    private volatile AppSettings settings = null;
 
     private static class SettingsManagerHolder {
         private static final SettingsManager SETTINGS_MANAGER = new SettingsManager();
@@ -25,39 +22,35 @@ public class SettingsManager {
     }
 
     public synchronized void init() {
-        if (!isInited.getAndSet(true)) {
-            AppSettings settings;
+        if (!isInited) {
             try {
                 settings = SettingsLoader.loadSettings();
             } catch (SettingsLoadingException e) {
                 log.error("Error load setting, use default.");
                 settings = new AppSettings();
             }
-            settingsRef.set(settings);
+            isInited = true;
+        }
+    }
+
+    private void checkInit() {
+        if (!isInited) {
+            throw new IllegalStateException("Settings not initiliazed yet");
         }
     }
 
     public synchronized AppSettings getAppSettings() {
-        if (isInited.get()) {
-            return settingsRef.get();
-        } else {
-            throw new IllegalStateException("Settings not initiliazed yet");
-        }
+        checkInit();
+        return settings;
     }
 
     public synchronized void setAppSettings(AppSettings newSettings) {
-        if (isInited.get()) {
-            settingsRef.set(newSettings);
-        } else {
-            throw new IllegalStateException("Settings not initiliazed yet");
-        }
+        checkInit();
+        settings = newSettings;
     }
 
     public synchronized void saveAppSettings() {
-        if (isInited.get()) {
-            SettingsLoader.saveSettings(settingsRef.get());
-        } else {
-            throw new IllegalStateException("Settings not initiliazed yet");
-        }
+        checkInit();
+        SettingsLoader.saveSettings(settings);
     }
 }

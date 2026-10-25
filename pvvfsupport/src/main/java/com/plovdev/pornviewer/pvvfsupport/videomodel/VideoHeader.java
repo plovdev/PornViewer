@@ -71,7 +71,7 @@ public record VideoHeader(byte version, byte flag, byte mimeLength, int lastChun
         byte flag = 0;
 
         byte[] baseNonce = new byte[8];
-        CryptoUtils.createRandomPassword(baseNonce);
+        CryptoUtils.fillRandomBytes(baseNonce);
         long encVideoSize = PVVFUtils.calculateTotalEncVideoSize(plainVideoSize);
 
         return new VideoHeader(version, flag, (byte) mime.length(), lastChunkPaddingSize, plainVideoSize, encVideoSize, baseNonce, mime);

@@ -1,0 +1,29 @@
+[header:35 + n mime]
+    PVVF                // 4b magic
+    1                   // 1b version
+    0                   // 1b flag
+    MP4                 // 1b mime type length
+    120                 // 4b last chunk padding size
+    12345678            // 8b plain video size
+    12345678            // 8b enc video size
+    12345678            // 8b base nonce
+    1234567890123456    // 16b salt -- NOT IMPL YET(NEW)
+    video/mp4           // nb mime type
+
+[encrypted body:n % 128kb + 16b == 0]
+    [chunk:128kb + 16b]
+        ...             // 128kb encrypted data
+        123456...16     // 16b ChaCha20 tag
+    [chunk:128kb + 16b]
+        ...             // 128kb encrypted data
+        123456...16     // 16b ChaCha20 tag
+    ...
+[metadata:n]
+1234                    // 4b total metadata size
+1234                    // 4b encrypted JSON size
+1234                    // 4b encrypted preview size
+123456789012            // 8b base metadata nonce
+ENC_STRING              // nb encrypted JSON
+123456...16             // 16b ChaCha20 JSON tag
+...                     // nb encrypted preview
+123456...16             // 16b ChaCha20 preview tag

@@ -135,12 +135,14 @@ public final class PornClientImpl implements PornClient {
     }
 
     @Override
-    public List<ShortVideoInfo> requestModelPage(String modelName) {
+    public List<ShortVideoInfo> requestModelPage(String modelName, int page) {
+        checkPage(page);
+
         UriBuilder builder = new UriBuilder(baseUrl.get());
         ModelsResources resources = resourceConfig.modelsResources().orElseThrow(() -> new UnsupportedOperationException("This adapter not support model page"));
         if (checker.supportModel()) {
             String preparedModel = URLEncoder.encode(modelName, DEFAULT_CHARSET);
-            String modelUrl = VariableHandler.processVariables(resources.modelEndpoint().orElseThrow(), Map.of(Variable.MODEL_NAME, preparedModel));
+            String modelUrl = VariableHandler.processVariables(resources.modelEndpoint().orElseThrow(), Map.of(Variable.MODEL_NAME, preparedModel, Variable.PAGE, String.valueOf(page)));
             builder.appendUriPart(modelUrl);
             return scriptEngine.parseVideos(requestProvider.executeGet(get(builder.build())));
         } else {
@@ -183,7 +185,8 @@ public final class PornClientImpl implements PornClient {
         CategoriesResources resources = resourceConfig.categoriesResources().orElseThrow(() -> new UnsupportedOperationException("This adapter not support category page"));
         if (resources.supports() && resources.endpoint().isPresent()) {
             if (checker.supportCategory()) {
-                String categoryUrl = VariableHandler.processVariables(resources.categoryEndpoint().orElseThrow(), Map.of(Variable.CATEGORY, categoryName, Variable.PAGE, String.valueOf(page)));
+                String category = URLEncoder.encode(categoryName, DEFAULT_CHARSET);
+                String categoryUrl = VariableHandler.processVariables(resources.categoryEndpoint().orElseThrow(), Map.of(Variable.CATEGORY, category, Variable.PAGE, String.valueOf(page)));
                 builder.appendUriPart(categoryUrl);
                 return scriptEngine.parseVideos(requestProvider.executeGet(get(builder.build())));
             } else {
@@ -228,7 +231,7 @@ public final class PornClientImpl implements PornClient {
         if (checker.supportMirrors()) {
             List<String> mirrors = resourceConfig.mirrors().orElseThrow();
             if (!mirrors.isEmpty()) {
-                this.baseUrl.set(mirrors.get(index)); // Thorws index exception if index is outside
+                this.baseUrl.set(mirrors.get(index)); // Throws index exception if index is outside
             }
         } else {
             throw new UnsupportedOperationException("This adapter not support mirrors");

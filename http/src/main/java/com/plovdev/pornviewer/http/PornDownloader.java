@@ -106,7 +106,7 @@ public class PornDownloader {
 
     private void prepareAndWriteMetadata(@NonNull PVVFWriter writer, FullVideoInfo info, byte[] preview) {
         byte[] nonce = new byte[VideoMetadata.BASE_NONCE_LENGTH];
-        CryptoUtils.createRandomPassword(nonce);
+        CryptoUtils.fillRandomBytes(nonce);
         CryptoEngine engine = new CryptoEngine(Cipher.ENCRYPT_MODE, PVSecurityManager.getPassword(RegisteredSecurityModule.PVVF_SUPPORT), nonce); // update nonce to encrypt metadata
 
         String json = formJson(info);

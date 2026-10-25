@@ -50,7 +50,7 @@ public interface PornClient extends AutoCloseable {
      * @return список видео у конкретной модели.
      * @throws UnsupportedOperationException если на сайте нет видео у моделей или плагин это не поддерживает.
      */
-    List<ShortVideoInfo> requestModelPage(String modelName);
+    List<ShortVideoInfo> requestModelPage(String modelName, int page);
 
     /**
      * Производит поиск по моделям, доступным на сайте.

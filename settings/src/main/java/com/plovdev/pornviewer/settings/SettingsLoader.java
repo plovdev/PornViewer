@@ -57,8 +57,8 @@ public class SettingsLoader {
         byte[] nonce = new byte[12];
         byte[] salt = new byte[16];
         byte[] nonceAndSalt = new byte[28];
-        CryptoUtils.createRandomPassword(nonce);
-        CryptoUtils.createRandomPassword(salt);
+        CryptoUtils.fillRandomBytes(nonce);
+        CryptoUtils.fillRandomBytes(salt);
         System.arraycopy(nonce, 0, nonceAndSalt, 0, 12);
         System.arraycopy(salt, 0, nonceAndSalt, 12, 16);
 

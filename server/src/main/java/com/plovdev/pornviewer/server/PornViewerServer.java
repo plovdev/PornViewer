@@ -94,8 +94,6 @@ public class PornViewerServer {
                 isServerStarted.set(false);
                 throw new PornViewerServerException("Unable to start server", e);
             }
-        } else {
-            throw new IllegalStateException("Server already started");
         }
     }
 
@@ -104,8 +102,6 @@ public class PornViewerServer {
             server.stop(stopDelay);
             log.info("PornViewer local server stopped...");
             GlobalEventManager.broadcastEvent(new ServerChannelEvent(ServerChannelEvent.ServerEventType.SERVER_STOPPED));
-        } else {
-            throw new IllegalStateException("Server already stopped");
         }
     }
 }

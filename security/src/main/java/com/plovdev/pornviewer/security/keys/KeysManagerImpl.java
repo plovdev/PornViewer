@@ -47,7 +47,7 @@ public class KeysManagerImpl implements KeysManager {
             if (exist == null) {
                 byte[] moduleKey = new byte[32];
                 try {
-                    CryptoUtils.createRandomPassword(moduleKey);
+                    CryptoUtils.fillRandomBytes(moduleKey);
                     KEYCHAIN.setPassword(moduleIdKey, moduleKey);
                 } finally {
                     Arrays.fill(moduleKey, (byte) 0);

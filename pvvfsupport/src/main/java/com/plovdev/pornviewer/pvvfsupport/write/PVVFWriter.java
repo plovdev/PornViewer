@@ -79,7 +79,7 @@ public class PVVFWriter implements AutoCloseable {
             writeStream.write(videoHeader.baseNonce());
 
             // step 7 - write mime type string:
-            writeString(videoHeader.mime());
+            writeStream.write(videoHeader.mime().getBytes(IO_CHARSET));
         } catch (IOException e) {
             throw new PVVFException("Error to write video header", e);
         }

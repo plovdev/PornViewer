@@ -23,7 +23,7 @@ public class KeysEncoderImpl implements KeysEncoder {
     public byte[] encode(char[] password) {
         try {
             byte[] salt = new byte[SALT_LENGTH];
-            CryptoUtils.createRandomPassword(salt);
+            CryptoUtils.fillRandomBytes(salt);
 
             KeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
             SecretKeyFactory factory = SecretKeyFactory.getInstance(ALGORITHM);
