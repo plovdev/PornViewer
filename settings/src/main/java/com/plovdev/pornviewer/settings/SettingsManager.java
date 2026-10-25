@@ -52,4 +52,12 @@ public class SettingsManager {
             throw new IllegalStateException("Settings not initiliazed yet");
         }
     }
+
+    public synchronized void saveAppSettings() {
+        if (isInited.get()) {
+            SettingsLoader.saveSettings(settingsRef.get());
+        } else {
+            throw new IllegalStateException("Settings not initiliazed yet");
+        }
+    }
 }

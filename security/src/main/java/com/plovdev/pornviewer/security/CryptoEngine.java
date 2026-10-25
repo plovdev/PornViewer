@@ -2,6 +2,7 @@ package com.plovdev.pornviewer.security;
 
 import com.plovdev.pornviewer.security.exceptions.PornViewerSecurityException;
 import com.plovdev.pornviewer.services.NumberUtils;
+import org.jspecify.annotations.NonNull;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -22,10 +23,6 @@ public class CryptoEngine {
         } catch (Exception e) {
             throw new PornViewerSecurityException(e);
         }
-    }
-
-    public CryptoEngine(int mode, byte[] password) {
-        this(mode, password, null);
     }
 
     public int getMode() {
@@ -51,12 +48,28 @@ public class CryptoEngine {
 
     public synchronized byte[] processData(byte[] data, byte[] nonce, byte[] id) {
         try {
+            return prepareCipher(nonce, id).doFinal(data);
+        } catch (Exception e) {
+            throw new PornViewerSecurityException(e);
+        }
+    }
+
+    public synchronized byte[] processData(byte[] data, int pos, int len, byte[] nonce, byte[] id) {
+        try {
+            return prepareCipher(nonce, id).doFinal(data, pos, len);
+        } catch (Exception e) {
+            throw new PornViewerSecurityException(e);
+        }
+    }
+
+    private synchronized @NonNull Cipher prepareCipher(byte[] nonce, byte[] id) {
+        try {
             IvParameterSpec parameterSpec = CryptoUtils.createParameterSpecFromNonce(nonce);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(mode, keySpec, parameterSpec);
             cipher.updateAAD(id);
 
-            return cipher.doFinal(data);
+            return cipher;
         } catch (Exception e) {
             throw new PornViewerSecurityException(e);
         }

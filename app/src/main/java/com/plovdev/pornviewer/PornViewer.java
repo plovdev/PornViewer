@@ -1,6 +1,6 @@
 package com.plovdev.pornviewer;
 
-import com.plovdev.pornviewer.services.settings.SettingsManager;
+import com.plovdev.pornviewer.settings.SettingsManager;
 import com.plovdev.pornviewer.ui.PornViewerApplication;
 import com.plovdev.pornviewer.ui.tools.SplashScreenHandler;
 import javafx.application.Application;

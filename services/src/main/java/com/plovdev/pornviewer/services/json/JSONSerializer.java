@@ -11,6 +11,8 @@ import com.plovdev.pornviewer.services.json.typeadapters.ModelCountryAdapter;
 import com.plovdev.pornviewer.services.json.typeadapters.VideoQualityAdapter;
 import org.jspecify.annotations.NonNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.time.Duration;
 
@@ -30,5 +32,9 @@ public class JSONSerializer {
 
     public static <V> V deserialize(String json, Type type) {
         return GSON.fromJson(json, type);
+    }
+
+    public static <V> V deserialize(byte[] json, Type type) {
+        return GSON.fromJson(new InputStreamReader(new ByteArrayInputStream(json)), type);
     }
 }

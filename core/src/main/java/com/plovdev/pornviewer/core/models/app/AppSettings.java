@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public final class AppSettings {
+    public static final String ID = "app-settings";
+
     private Locale locale;
     private String adapter;
     private AppUITheme theme;
@@ -70,5 +72,16 @@ public final class AppSettings {
 
     public void setLoadTrailers(boolean loadTrailers) {
         this.loadTrailers = loadTrailers;
+    }
+
+    @Override
+    public String toString() {
+        return "AppSettings{" +
+                "locale=" + locale +
+                ", adapter='" + adapter + '\'' +
+                ", theme=" + theme +
+                ", appPath='" + appPath + '\'' +
+                ", loadTrailers=" + loadTrailers +
+                '}';
     }
 }
