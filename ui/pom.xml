@@ -23,6 +23,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.plovdev.pornviewer</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-webp</artifactId>
             <version>${imageio.version}</version>

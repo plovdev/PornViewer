@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.plovdev.pornviewer.ui.components.PornTabPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane prefWidth="1000.0" prefHeight="600.0"
+            xmlns="http://javafx.com"
+            xmlns:fx="http://javafx.com"
+            fx:controller="com.plovdev.pornviewer.ui.controllers.MainLayoutController">
+
+    <top>
+        <MenuBar BorderPane.alignment="CENTER" useSystemMenuBar="true">
+            <Menu text="Файл">
+                <MenuItem text="Настройки" onAction="#handleOpenSettings"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Выход" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="Помощь">
+                <MenuItem text="О программе" onAction="#handleAbout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <PornTabPane fx:id="pornTabPane" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>

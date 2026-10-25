@@ -1,4 +1,4 @@
-package com.plovdev.pornviewer.controllers;
+package com.plovdev.pornviewer.ui.controllers;
 
 import javafx.scene.control.Button;
 

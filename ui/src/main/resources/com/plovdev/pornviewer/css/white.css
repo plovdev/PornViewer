@@ -1,0 +1,554 @@
+.root-main {
+    -fx-padding: 0 10px 10px 10px;
+    -fx-background-color: white;
+}
+
+.porn-tab {
+    -fx-background-color: lightgray;
+    -fx-background-insets: 0 7px 0 7px;
+
+    -fx-background-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+
+    -fx-font-family: Inter;
+    -fx-font-size: 1.3em;
+}
+
+.focus-indicator {
+    -fx-border-width: 0;
+}
+.porn-tab:selected {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-color: rgb(250,160,0);
+    -fx-color: white;
+}
+.porn-tab-pane {
+    -fx-background-color: white;
+    -fx-padding: 0 10px 10px 10px;
+}
+.porn-tab .tab-label {
+     -fx-text-fill: black;
+     -fx-font-size: 150%;
+}
+
+.tab::selected .tab-label {
+    -fx-text-fill: white;
+    -fx-color: white;
+}
+.porn-tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+.porn-tab-pane .tab-content-area {
+    -fx-padding: 20px 0 0 0;
+}
+
+.marker {
+    -fx-font-family: "Arial";
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.model-hover {
+    -fx-padding: 10px;
+}
+
+.video-hover, model-hover {
+    -fx-transition: -fx-background-color 1s;
+}
+
+.video-hover:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.0), rgba(10,10,10,0.5));
+}
+.model-hover:hover {
+    -fx-background-color: linear-gradient(to top, rgba(255,255,255,0.0), rgba(10,10,10,0.3));
+}
+
+.model-country {
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: white;
+    -fx-font-size: 1.6em;
+}
+
+.trailer {
+    -fx-background-color: rgb(285,180,40);
+    -fx-background-radius: 15px;
+}
+
+.title-box {
+    -fx-padding: 5px;
+}
+.video-title {
+    -fx-font-family: "Arial";
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.video-title:focused {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border: none;
+}
+
+.main-pane {
+    -fx-background-color: white;
+}
+.main-pane-content {
+    -fx-background-color: white;
+    -fx-border-color: rgb(285,180,40);
+    -fx-border-radius: 20px;
+}
+
+
+.notify-wrapper {
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-color: rgb(40,40,40);
+}
+
+.notify-item:empty {
+    -fx-background-color: none;
+    -fx-effect: none;
+    -fx-border: none;
+}
+
+.notify-item:selected {
+    -fx-background-color: rgb(50,50,50);
+}
+.notify-view {
+    -fx-background-color: transparent;
+    -fx-fixed-cell-size: 50px;
+}
+.notify-item {
+    -fx-background-radius: 10px;
+    -fx-background-insets: 10px;
+    -fx-border-radius: 10px;
+    -fx-text-fill: rgb(285,180,40);
+    -fx-padding: 5px;
+    -fx-background-color: rgb(50,50,50);
+}
+.notify-item-label {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(285,180,40);
+    -fx-font-size: 1.2em;
+    -fx-padding: 10px;
+}
+.notify-item-label:focused {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border: none;
+}
+
+.top-nots {
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgb(285,180,40);
+}
+
+.search {
+    -fx-background-color: transparent;
+}
+.nots-panel {
+    -fx-background-color: #131313FF;
+    -fx-background-radius: 30px 0 0 30px;
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-border-radius: 30px 0 0 30px;
+    -fx-border-color: rgb(285,180,40);
+}
+.mark {
+    -fx-font-family: "Arial";
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.mark-close {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(295,180,40);
+    -fx-font-size: 1.5em;
+}
+.search-filed {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(285,180,40);
+    -fx-prompt-text-fill: rgb(285,180,40);
+    -fx-font-size: 1.4em;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgb(285,180,40);
+    -fx-background-radius: 50px;
+}
+
+.porn-scroll {
+    -fx-border-color: white;
+    -fx-background-color: white;
+}
+
+.porn-search {
+    -fx-font-family: "Arial";
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: black;
+    -fx-font-size: 1.5em;
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: rgb(285,180,40);
+}
+.porn-check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: rgb(285,180,40);
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+.categories {
+    -fx-background-color: rgb(285,180,40);
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+}
+.porn-check-box {
+    -fx-font-family: "Arial";
+    -fx-text-fill: black;
+    -fx-font-size: 1.3em;
+}
+.porn-bar {
+    -fx-padding: 0;
+}
+
+.download-video-card {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(250,160,0);
+    -fx-border-radius: 30px;
+    -fx-padding: 0;
+}
+.delete-label {
+    -fx-font-family: "Arial";
+    -fx-text-fill: red;
+    -fx-font-size: 3em;
+}
+
+.smooth-box {
+    -fx-background-radius: 0 0 30px 30px;
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgb(250,160,0);
+    -fx-border-radius: 0;
+    -fx-padding: 0;
+    -fx-background-color: rgba(20,20,20,0.4);
+}
+.video-title-download {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(250,160,0);
+    -fx-font-size: 2em;
+}
+.marker-download {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(285,180,40);
+    -fx-font-size: 1.5em;
+}
+.video-title-download:focused {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border: none;
+}
+
+.video-descr-download {
+    -fx-font-family: "Arial";
+    -fx-text-fill: rgb(240,150,0);
+    -fx-font-size: 1.3em;
+}
+
+.porn-downloading-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+.porn-downloading-bar .bar {
+    -fx-background-color: rgb(285,180,40);
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+.porn-downloading-bar .track {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+}
+
+.porn-downloading-bar-error .bar {
+    -fx-background-color: red;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.play-stop {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: rgba(10,10,10,0.6);
+    -fx-font-family: "Arial";
+    -fx-text-fill: white;
+    -fx-font-size: 2em;
+}
+
+.video-slider .track {
+    -fx-background-color: rgb(285,180,40);
+}
+.video-slider .thumb {
+    -fx-background-color: rgb(250,160,0);
+}
+
+.video-player-bordered {
+    -fx-background-color: rgba(10,10,10,0.4);
+    -fx-padding: 10px;
+}
+.share-button {
+    -fx-background-color: transparent;
+}
+
+.video-rates {
+    -fx-background-color: transparent;
+    -fx-border-color: rgb(285,180,40);
+    -fx-border-width: 0 0 2px 0;
+    -fx-font-size: 14px;
+}
+
+/* Стиль выпадающего списка */
+.video-rates .list-view {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-border-color: rgb(285,180,40);
+    -fx-border-width: 1px 1px 0 1px;
+    -fx-border-radius: 10px 10px 0 0;
+    -fx-text-fill: rgb(285,180,40);
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-transition: -fx-opacity 0.2s;
+}
+
+/* Ячейки в выпадающем списке */
+.video-rates .list-cell {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: rgb(285,180,40);
+    -fx-font-size: 14px;
+}
+
+/* Ячейка при наведении */
+.video-rates .list-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.4);
+}
+.video-rates .list-cell:selected {
+    -fx-background-color: transparent;
+}
+
+/* Выбранная ячейка */
+.video-rates .list-view .list-cell:selected {
+    -fx-background-color: rgb(285,180,40);
+    -fx-text-fill: white;
+}
+
+.video-rates .arrow-button {
+    -fx-background-color: transparent; /* ← Прозрачный фон */
+}
+.video-rates .combo-box-base {
+    -fx-background-color: transparent;
+}
+.video-rates .arrow-button .arrow {
+    -fx-background-color: rgb(285,180,40); /* Только стрелка оранжевая */
+}
+
+/* Текст в выбранной ячейке */
+.video-rates .list-cell .text {
+    -fx-fill: rgb(250,160,0);
+    -fx-background-color: transparent;
+}
+
+.clear-search {
+    -fx-text-fill: rgb(285,180,40);
+    -fx-font-size: 3em;
+}
+.clear-search:hover {
+    -fx-text-fill: rgb(250,160,0);
+}
+
+.categories:hover {
+    -fx-background-color: rgb(250,160,0);
+}
+
+.pagination-button {
+    -fx-background-color: white;
+    -fx-border-color: rgb(285,180,40);
+    -fx-border-width: 1px;
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: rgb(250,160,0);
+    -fx-font-family: "Arial";
+    -fx-font-size: 1.3em;
+}
+.pagination-button:hover {
+    -fx-background-color: rgb(250,250,250);
+}
+
+.options {
+    -fx-background-color: transparent;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-color: black;
+    -fx-font-size: 1.5em;
+}
+
+.add-favorite-group {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: rgb(285,180,40);
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 1.6em;
+}
+
+.favorite-user-toggle, .load-all {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-font-size: 1.2em;
+    -fx-transition: all 0.2s all;
+}
+.favorite-user-toggle.drag-drop {
+    -fx-background-color: #ff9800;
+    -fx-text-fill: white;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+.favorite-user-toggle:selected, .load-all:pressed {
+    -fx-background-color: rgb(250,160,0);
+    -fx-text-fill: white;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane:focused {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border: none;
+}
+
+.groups-box {
+    -fx-background-color: white;
+}
+
+.auto-complete-popup {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+}
+
+.auto-complete-popup > .list-view {
+    -fx-background-color: rgba(30, 30, 30, 0.95) !important;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-padding: 2px;
+    -fx-background-insets: 0;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow,
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container,
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet {
+    -fx-background-color: transparent !important;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgb(255, 180, 40);
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial";
+    -fx-padding: 5px 10px;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover,
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+    -fx-background-color: #3d3d3d !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-background-radius: 5px;
+}
+
+.deep-search-button {
+    -fx-background-color: rgb(255, 180, 40);
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 17px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.toast-notify {
+    -fx-background-color: transparent;
+}
+.toast-notify .label {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.context-menu.options {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 5px;
+    -fx-padding: 2px;
+}
+.context-menu.options .container {
+    -fx-background-color: transparent;
+}
+.context-menu.options .menu-item {
+    -fx-padding: 3px;
+    -fx-background-color: transparent;
+}
+
+.context-menu.options .menu-item:focused,
+.context-menu.options .menu-item:hover {
+    -fx-background-color: #3d3d3d;
+}
+
+.context-menu.options .menu-item .label {
+    -fx-text-fill: rgb(255, 180, 40);
+    -fx-font-size: 1em;
+    -fx-font-family: "Arial";
+    -fx-font-weight: normal;
+}
+
+.context-menu.options .menu-item:focused .label,
+.context-menu.options .menu-item:hover .label {
+    -fx-text-fill: #ffffff;
+}

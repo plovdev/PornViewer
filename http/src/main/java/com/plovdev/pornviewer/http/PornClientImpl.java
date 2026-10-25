@@ -8,7 +8,6 @@ import com.plovdev.pornviewer.core.models.porn.CategoryInfo;
 import com.plovdev.pornviewer.core.models.porn.FullVideoInfo;
 import com.plovdev.pornviewer.core.models.porn.ModelInfo;
 import com.plovdev.pornviewer.core.models.porn.ShortVideoInfo;
-import com.plovdev.pornviewer.database.tables.UserSettingsManager;
 import com.plovdev.pornviewer.http.providers.HttpClientRequestProvider;
 import com.plovdev.pornviewer.http.providers.OkHttpRequestProvider;
 import com.plovdev.pornviewer.http.providers.PornRequestProvider;
@@ -18,6 +17,7 @@ import com.plovdev.pornviewer.pvvasupport.loading.PVVALoaderManager;
 import com.plovdev.pornviewer.pvvasupport.parser.ScriptEngineExecutor;
 import com.plovdev.pornviewer.services.http.UriBuilder;
 import com.plovdev.pornviewer.core.models.video.DownloadedVideoInfo;
+import com.plovdev.pornviewer.services.settings.SettingsManager;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.plovdev.pvva.models.PVVAHost;
@@ -60,7 +60,7 @@ public final class PornClientImpl implements PornClient {
     private final AtomicReference<String> baseUrl;
 
     public PornClientImpl() {
-        PVVAHost host = Objects.requireNonNull(PVVALoaderManager.loadPvvaById(UserSettingsManager.getUserSettings().adapter()));
+        PVVAHost host = Objects.requireNonNull(PVVALoaderManager.loadPvvaById(SettingsManager.getInstance().getAppSettings().getAdapter()));
         this(host);
     }
 

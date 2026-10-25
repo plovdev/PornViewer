@@ -10,12 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public record PVFileManager() {
+    private static final Logger log = LoggerFactory.getLogger(PVFileManager.class);
+
     private static final Path PV_BASE_PATH = Path.of(System.getProperty("pv.home", System.getProperty("user.home")), ".PornViewer");
     private static final Path PV_PLUGINS_PATH = PV_BASE_PATH.resolve("plugins");
     private static final Path PV_DOWNLOADS = PV_BASE_PATH.resolve("downloads");
     private static final Path PV_SYSTEM = PV_BASE_PATH.resolve("system");
     private static final Path PV_DB_PATH = PV_SYSTEM.resolve("f9dea68a12f99af0c613e4fdb59756d8f28dd78a608459a775fde1c576bfcfde");
-    private static final Logger log = LoggerFactory.getLogger(PVFileManager.class);
+    private static final Path PV_APP_SETTINGS_PATH = PV_SYSTEM.resolve("e36bf92c23e608f82121b933635ff437db1f7c20a86de01d3f89208ae68ea540");
 
     @NotNull
     public static Path getPVBasePath() {
@@ -43,6 +45,11 @@ public record PVFileManager() {
     @NotNull
     public static Path getPvDbPath() {
         return PV_DB_PATH;
+    }
+
+    @NotNull
+    public static Path getPvAppSettingsPath() {
+        return PV_APP_SETTINGS_PATH;
     }
 
     @NotNull

@@ -1,4 +1,4 @@
-package com.plovdev.pornviewer.tools;
+package com.plovdev.pornviewer.ui.tools;
 
 import org.jspecify.annotations.NonNull;
 

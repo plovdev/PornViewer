@@ -24,6 +24,10 @@ public class CryptoEngine {
         }
     }
 
+    public CryptoEngine(int mode, byte[] password) {
+        this(mode, password, null);
+    }
+
     public int getMode() {
         return mode;
     }

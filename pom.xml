@@ -25,6 +25,7 @@
         <module>app</module>
         <module>server</module>
         <module>pvifsupport</module>
+        <module>settings</module>
     </modules>
 
     <licenses>
