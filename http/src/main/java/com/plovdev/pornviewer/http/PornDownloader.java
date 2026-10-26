@@ -94,9 +94,10 @@ public class PornDownloader {
                 }
                 byte[] encryptedWithTag = engine.processChunk(chunkIndex, plainChunk);
                 writer.appendVideoChunk(VideoChunk.ofEncryptedWithTag(chunkIndex, encryptedWithTag));
-                GlobalEventManager.broadcastEvent(new VideoDownloadingChannel(videoId, totalReaded, DownloadingType.PROCESS));
+
                 totalReaded += readed;
                 chunkIndex++;
+                GlobalEventManager.broadcastEvent(new VideoDownloadingChannel(videoId, totalReaded, DownloadingType.PROCESS));
             }
         } catch (IOException e) {
             log.error("Error while writing chunks: ", e);

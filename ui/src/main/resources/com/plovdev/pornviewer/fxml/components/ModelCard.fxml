@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<fx:root type="javafx.scene.layout.StackPane"
+         fx:id="mainContainer"
+         xmlns="http://javafx.com"
+         xmlns:fx="http://fxml.com"
+         onMouseEntered="#onMouseEntered"
+         onMouseExited="#onMouseExited">
+
+    <children>
+        <VBox fx:id="contentBox" spacing="10.0" styleClass="trailer">
+            <children>
+                <ImageView fx:id="avatarImage"
+                           preserveRatio="true"
+                           styleClass="video-preview"/>
+
+                <HBox styleClass="title-box">
+                    <children>
+                        <Hyperlink fx:id="nameLink"
+                                   onAction="#onNameClick"
+                                   styleClass="video-title"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <HBox fx:id="infoOverlay"
+              styleClass="model-hover"
+              visible="false"
+              StackPane.alignment="BOTTOM_CENTER">
+            <StackPane.margin>
+                <Insets bottom="50.0"/>
+            </StackPane.margin>
+            <children>
+                <Label fx:id="countryLabel" styleClass="model-country"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <VBox fx:id="actionBox" spacing="10.0">
+                    <children>
+                        <Label fx:id="videosLabel" styleClass="marker-download"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</fx:root>

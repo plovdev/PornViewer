@@ -34,7 +34,7 @@ public final class SecureDB {
         Properties props = new Properties();
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = PVFileManager.getPVJDBCPathProtocol();
+            String url = PVFileManager.getPVJDBCURL();
             props.setProperty("cipher", "chacha20");
             props.setProperty("key", HexUtils.ofHex(password));
             props.setProperty("temp_store", "MEMORY");
