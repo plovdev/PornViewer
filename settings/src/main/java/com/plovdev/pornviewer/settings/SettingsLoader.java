@@ -46,7 +46,6 @@ public class SettingsLoader {
                 Arrays.fill(jsonData, (byte) 0);
             }
         } catch (Exception e) {
-            log.error("Error load settings: ", e);
             throw new SettingsLoadingException(e);
         }
     }

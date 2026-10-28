@@ -1,6 +1,5 @@
 package com.plovdev.pornviewer.init;
 
-import com.plovdev.pornviewer.core.exceptions.PornViewerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,11 +33,13 @@ public class InitializatorManager {
             return;
         }
         if (listener == null) {
-            return;
+            log.warn("Listener is null");
+            listener = (result, value) -> {
+            };
         }
 
+        int totalValue = 0;
         try {
-            int totalValue = 0;
             int percent = 100 / initializators.size();
             for (AppInitializator initializator : initializators) {
                 InitType result = initializator.getInitType();
@@ -47,11 +48,11 @@ public class InitializatorManager {
                 totalValue += percent;
             }
 
-            listener.onInit(InitType.FINISH, totalValue);
-        } catch (PornViewerException e) {
+            listener.onInit(InitType.FINISH, 100);
+        } catch (Exception e) {
             log.error("Error initialize app: ", e);
-            listener.onInit(InitType.ERROR, 100);
-            throw e;
+            listener.onInit(InitType.ERROR, totalValue);
+            throw e; // drop app if error occured while initializing
         }
     }
 
