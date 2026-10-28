@@ -1,5 +1,7 @@
 package com.plovdev.pornviewer.ui;
 
+import com.plovdev.pornviewer.core.events.BasicChannelEvent;
+import com.plovdev.pornviewer.core.events.GlobalEventManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +22,8 @@ public class PornViewerApplication extends Application {
         primaryStage.setTitle("PornViewer 2");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        GlobalEventManager.broadcastEvent(new BasicChannelEvent("app.initializing.finish"));
     }
 
     @Override

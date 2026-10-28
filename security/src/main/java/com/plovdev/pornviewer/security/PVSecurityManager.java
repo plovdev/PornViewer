@@ -10,20 +10,30 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PVSecurityManager {
     private static final Logger log = LoggerFactory.getLogger(PVSecurityManager.class);
     private static final KeysManager KEYS_MANAGER = new KeysManagerImpl();
     private static final KeysEncoder KEYS_ENCODER = new KeysEncoderImpl();
+    private static final AtomicBoolean isInited = new AtomicBoolean(false);
 
     private PVSecurityManager() {
     }
 
-    static {
-        KEYS_MANAGER.initKeysIfNotExist();
+    public synchronized static void initSecurity() {
+        if (!isInited.get()) {
+            KeysManagerImpl.initKeysManager();
+            KEYS_MANAGER.initKeysIfNotExist();
+            isInited.set(true);
+        }
     }
 
     public static boolean verifyAppPin(String appPin) {
+        if (!isInited.get()) {
+            throw new IllegalStateException("Security manager not initialized");
+        }
+
         log.info("Verifying app pin");
         if (appPin == null || appPin.isBlank()) {
             throw new IllegalArgumentException("App pin should be not empty.");
@@ -45,6 +55,9 @@ public class PVSecurityManager {
     }
 
     public static byte[] getPassword(@NonNull RegisteredSecurityModule module) {
+        if (!isInited.get()) {
+            throw new IllegalStateException("Security manager not initialized");
+        }
         return KEYS_MANAGER.getKeyForModule(module.getModuleId());
     }
 }

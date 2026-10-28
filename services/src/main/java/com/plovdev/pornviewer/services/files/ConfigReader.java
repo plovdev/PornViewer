@@ -2,14 +2,15 @@ package com.plovdev.pornviewer.services.files;
 
 import com.plovdev.pornviewer.core.models.app.AppInfo;
 import com.plovdev.pornviewer.services.exceptions.ConfigLoadingException;
-import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 
 import java.time.LocalDate;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ConfigReader {
     private final Properties properties = new Properties();
+    private static final AtomicReference<AppInfo> APP_INFO_CACHE = new AtomicReference<>();
 
     public ConfigReader() {
         this("/.properties");
@@ -55,18 +56,23 @@ public class ConfigReader {
         return Boolean.parseBoolean(property);
     }
 
-    @Contract(" -> new")
-    public static @NonNull AppInfo loadAppInfo() {
-        ConfigReader reader = new ConfigReader();
+    public synchronized static @NonNull AppInfo loadAppInfo() {
+        if (APP_INFO_CACHE.get() == null) {
+            ConfigReader reader = new ConfigReader();
 
-        String appName = reader.getEnv("APP_NAME");
-        String version = reader.getEnv("VERSION");
-        String pvId = reader.getEnv("PV_ID");
-        String buildId = reader.getEnv("BUILD_ID");
-        LocalDate buildDate = LocalDate.parse(reader.getEnv("BUILD_DATE"), AppInfo.BUILD_DATE_FORMATTER_FROMSTR);
-        String vendor = reader.getEnv("VEDNOR");
-        String copyright = reader.getEnv("COPYRIGHT");
+            String appName = reader.getEnv("APP_NAME");
+            String version = reader.getEnv("VERSION");
+            String pvId = reader.getEnv("PV_ID");
+            String buildId = reader.getEnv("BUILD_ID");
+            LocalDate buildDate = LocalDate.parse(reader.getEnv("BUILD_DATE"), AppInfo.BUILD_DATE_FORMATTER_FROMSTR);
+            String vendor = reader.getEnv("VEDNOR");
+            String copyright = reader.getEnv("COPYRIGHT");
 
-        return new AppInfo(appName, version, pvId, buildId, buildDate, vendor, copyright);
+            AppInfo info = new AppInfo(appName, version, pvId, buildId, buildDate, vendor, copyright);
+            APP_INFO_CACHE.set(info);
+            return info;
+        } else {
+            return APP_INFO_CACHE.get();
+        }
     }
 }

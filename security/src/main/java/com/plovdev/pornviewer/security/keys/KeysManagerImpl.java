@@ -12,25 +12,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Реализация KeysManager. Обязательно требует инициализации для показа состояния приложения.
+ */
 public class KeysManagerImpl implements KeysManager {
     private static final Logger log = LoggerFactory.getLogger(KeysManagerImpl.class);
     private static final Keychain KEYCHAIN = Keychain.getKeychain(KeysManager.class);
+    private static final AtomicBoolean isInited = new AtomicBoolean(false);
 
     private static final String REGISTERED_MODULES_PATH = "/registered-modules.list";
     private static final String USER_PIN_HASH_PATH = "user.pin.hash";
     private static final String MODULE_KEY_PREFIX = "module.key.";
 
-    private static final List<String> registeredModules;
+    private static List<String> registeredModules;
 
-    static {
-        log.info("Collecting registered security modules...");
-        try (InputStream stream = KeysManager.class.getResourceAsStream(REGISTERED_MODULES_PATH)) {
-            String[] modules = new String(Objects.requireNonNull(stream).readAllBytes(), StandardCharsets.UTF_8).split(",");
-            registeredModules = Arrays.stream(modules).map(moduleId -> moduleId.trim().toLowerCase()).toList();
-            log.debug("Collected modules: {}", registeredModules);
-        } catch (IOException e) {
-            throw new PornViewerException("Can't collect registred security modules", e);
+    public static void initKeysManager() {
+        if (!isInited.get()) {
+            log.info("Collecting registered security modules...");
+            try (InputStream stream = KeysManager.class.getResourceAsStream(REGISTERED_MODULES_PATH)) {
+                String[] modules = new String(Objects.requireNonNull(stream).readAllBytes(), StandardCharsets.UTF_8).split(",");
+                registeredModules = Arrays.stream(modules).map(moduleId -> moduleId.trim().toLowerCase()).toList();
+                log.debug("Collected modules: {}", registeredModules);
+            } catch (IOException e) {
+                throw new PornViewerException("Can't collect registred security modules", e);
+            }
+            isInited.set(true);
         }
     }
 
@@ -39,6 +47,7 @@ public class KeysManagerImpl implements KeysManager {
      */
     @Override
     public synchronized void initKeysIfNotExist() {
+        checkInit();
         log.debug("Start initialize keys");
         for (String moduleId : registeredModules) {
             log.debug("Process key for module: {}", moduleId);
@@ -65,6 +74,7 @@ public class KeysManagerImpl implements KeysManager {
      */
     @Override
     public Optional<byte[]> getUserPinHash() {
+        checkInit();
         return Optional.ofNullable(KEYCHAIN.getRawPassword(USER_PIN_HASH_PATH));
     }
 
@@ -75,6 +85,7 @@ public class KeysManagerImpl implements KeysManager {
      */
     @Override
     public void setAppPin(@Nullable String pin) {
+        checkInit();
         if (pin == null) {
             log.debug("Deleting user app pin");
             KEYCHAIN.deletePassword(USER_PIN_HASH_PATH);
@@ -102,6 +113,7 @@ public class KeysManagerImpl implements KeysManager {
      */
     @Override
     public byte[] getKeyForModule(String moduleId) {
+        checkInit();
         if (moduleId == null || moduleId.isBlank()) {
             throw new IllegalArgumentException("Module id is empty.");
         }
@@ -117,5 +129,11 @@ public class KeysManagerImpl implements KeysManager {
             throw new NoSuchElementException("Password for module " + moduleId + " not found in Keychain!");
         }
         return password;
+    }
+
+    private static void checkInit() {
+        if (!isInited.get()) {
+            throw new IllegalStateException("Key manager not initialized");
+        }
     }
 }
