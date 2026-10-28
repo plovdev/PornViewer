@@ -20,7 +20,7 @@ public final class AppSettings {
     }
 
     public AppSettings() {
-        this(new Locale.Builder().setLanguage("ru").setRegion("RU").build(), "default", AppUITheme.SYSTEM, null, false);
+        this(new Locale.Builder().setLanguage("ru").setRegion("RU").build(), "eee82dc1d0111175e5ac30db983fcf7a6e3a0708b8a9f756a191cd7302ddb84d", AppUITheme.SYSTEM, null, false);
     }
 
     public AppSettings(@NonNull Locale locale, @NonNull String adapter, @NonNull AppUITheme theme, @Nullable String appPath, boolean loadTrailers) {

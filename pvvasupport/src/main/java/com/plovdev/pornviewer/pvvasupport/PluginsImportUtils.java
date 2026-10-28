@@ -11,13 +11,21 @@ import org.jspecify.annotations.NonNull;
 import org.plovdev.pvva.models.PVVAHeader;
 import org.plovdev.pvva.models.PVVAHost;
 import org.plovdev.pvva.models.PluginJson;
+import org.plovdev.pvva.read.ByteArrayPVVAReader;
+import org.plovdev.pvva.read.PVVAReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
-public final class PluginsUtils {
-    private PluginsUtils() {
+public final class PluginsImportUtils {
+    private static final Logger log = LoggerFactory.getLogger(PluginsImportUtils.class);
+
+    private PluginsImportUtils() {
     }
 
     public static void saveDownloadedPlugin(String pluginId, PVVAHost host, byte @NonNull [] pluginData) {
@@ -35,6 +43,23 @@ public final class PluginsUtils {
             PluginsProvider.addAdapter(new PluginInfo(header.getPluginId(), host.getSystemPluginId(), json.developerId(), json.title(), json.version(), json.description(), json.author(), json.authorPage().orElse(null), json.licenseUrl().orElse(null), json.homepage().orElse(null), null, header.getMinAppVersion(), header.getMaxAppVersion(), header.getBuildId()));
         } catch (IOException e) {
             throw new PluginSavingException(e);
+        }
+    }
+
+    public static void importPlugin(Path pluginPath) {
+        Objects.requireNonNull(pluginPath);
+        if (Files.notExists(pluginPath)) {
+            throw new NoSuchElementException("No plugin by specefied path: " + pluginPath);
+        }
+
+        try {
+            byte[] pluginData = Files.readAllBytes(pluginPath);
+            try (PVVAReader reader = new ByteArrayPVVAReader(pluginData)) {
+                PVVAHost host = reader.readVideoAdapter();
+                saveDownloadedPlugin(host.getSystemPluginId(), host, pluginData);
+            }
+        } catch (IOException e) {
+            log.error("Error import plugin: ", e);
         }
     }
 }

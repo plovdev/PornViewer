@@ -7,8 +7,12 @@ import org.jspecify.annotations.NonNull;
 import org.plovdev.pvva.models.PVVAHeader;
 import org.plovdev.pvva.models.PVVAHost;
 import org.plovdev.pvva.utils.VersionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class PluginValidator {
+    private static final Logger log = LoggerFactory.getLogger(PluginValidator.class);
+
     private PluginValidator() {
     }
 
@@ -20,8 +24,9 @@ public final class PluginValidator {
         int minAppVersion = header.getMinAppVersion();
         int maxAppVersion = header.getMaxAppVersion();
 
-        if (VersionUtils.isCompatibleWithAppVersion(minAppVersion, maxAppVersion, appVersion)) {
-            throw new UnsupportedPluginException("Plugin " + host.getSystemPluginId() + " not support this app version" + appVersion);
+        if (!VersionUtils.isCompatibleWithAppVersion(minAppVersion, maxAppVersion, appVersion)) {
+            log.warn("App version: {}, min app version: {}, max app version: {}", appVersion, minAppVersion, maxAppVersion);
+            throw new UnsupportedPluginException("Plugin " + host.header().getPluginId() + " not support this app version " + appVersion);
         }
     }
 }

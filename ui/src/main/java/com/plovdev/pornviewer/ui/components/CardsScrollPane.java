@@ -1,5 +1,6 @@
 package com.plovdev.pornviewer.ui.components;
 
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 
@@ -7,38 +8,55 @@ import java.util.Objects;
 
 public class CardsScrollPane extends ScrollPane {
     private double totalDeltaY = 0;
-    private volatile float triggerThreshold;
+    private volatile boolean isPullOfEnable = true;
+    private volatile float triggerThreshold = 300;
 
     private volatile Runnable onPulledOf = () -> {
     };
 
-    public CardsScrollPane(CardsFlowPane pane) {
+    public CardsScrollPane() {
         getStyleClass().add("porn-scroll");
         setFitToHeight(true);
         setFitToWidth(true);
+        setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        setHbarPolicy(ScrollBarPolicy.NEVER);
+    }
+
+    public void initialize() {
+        Node flowPane = getContent();
 
         addEventFilter(ScrollEvent.SCROLL, e -> {
-            if (getVvalue() <= 0.01 && e.getDeltaY() > 0) {
-                if (e.isInertia()) {
-                    totalDeltaY = 0;
-                    pane.setTranslateY(0);
-                    return;
-                }
+            if (isPullOfEnable) {
+                if (getVvalue() <= 0.01 && e.getDeltaY() > 0) {
+                    if (e.isInertia()) {
+                        totalDeltaY = 0;
+                        flowPane.setTranslateY(0);
+                        return;
+                    }
 
-                totalDeltaY += e.getDeltaY();
-                pane.setTranslateY(calculateRubberPull(totalDeltaY));
+                    totalDeltaY += e.getDeltaY();
+                    flowPane.setTranslateY(calculateRubberPull(totalDeltaY));
 
-                if (totalDeltaY >= triggerThreshold) {
-                    onPulledOf.run();
+                    if (totalDeltaY >= triggerThreshold) {
+                        onPulledOf.run();
+                        totalDeltaY = 0;
+                        flowPane.setTranslateY(0);
+                        e.consume();
+                    }
+                } else {
                     totalDeltaY = 0;
-                    pane.setTranslateY(0);
-                    e.consume();
+                    flowPane.setTranslateY(0);
                 }
-            } else {
-                totalDeltaY = 0;
-                pane.setTranslateY(0);
             }
         });
+    }
+
+    public boolean isPullOfEnable() {
+        return isPullOfEnable;
+    }
+
+    public synchronized void setPullOfEnable(boolean pullOfEnable) {
+        isPullOfEnable = pullOfEnable;
     }
 
     private double calculateRubberPull(double delta) {
@@ -47,7 +65,7 @@ public class CardsScrollPane extends ScrollPane {
         if (normalized <= 1.0) {
             return triggerThreshold * 0.4 * Math.pow(normalized, 1.5);
         } else {
-            float extra = (float) (normalized - 1.0);
+            double extra = (normalized - 1.0);
             return triggerThreshold * 0.4 + triggerThreshold * 0.3 * Math.log1p(extra);
         }
     }

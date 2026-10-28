@@ -20,7 +20,7 @@ public class PluginsProvider {
     private static final String DROP_TABLE = "DROP TABLE plugins";
     private static final String SELECT_ALL = "SELECT * FROM plugins";
     private static final String CONTAINS_ADAPTER = "SELECT EXISTS(SELECT 1 FROM plugins WHERE system_plugin_id = ?)";
-    private static final String INSERT_OR_REPLACE = "INSERT OR REPLACE INTO plugins (plugin_id, system_pligin_id, developer_id, title, version, description, author, author_page, license, homepage, image_str, min_app_version, max_app_version, build_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_OR_REPLACE = "INSERT OR REPLACE INTO plugins (plugin_id, system_plugin_id, developer_id, title, version, description, author, author_page, license, homepage, image_str, min_app_version, max_app_version, build_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_WHERE_PLUGIN_ID = "DELETE FROM plugins WHERE system_plugin_id = ?";
     private static final String SELECT_WHERE_PLUGIN_ID = "SELECT * FROM plugins WHERE system_plugin_id = ?";
 
@@ -164,7 +164,7 @@ public class PluginsProvider {
                             set.getString("version"),
                             set.getString("description"),
                             set.getString("author"),
-                            set.getString("author_page") != null ? URI.create(set.getString("authorPage")) : null,
+                            set.getString("author_page") != null ? URI.create(set.getString("author_page")) : null,
                             set.getString("license") != null ? URI.create(set.getString("license")) : null,
                             set.getString("homepage") != null ? URI.create(set.getString("homepage")) : null,
                             set.getString("image_str"),
@@ -178,7 +178,7 @@ public class PluginsProvider {
             log.error("Error to search adapter by id: ", e);
         }
 
-        throw new NoSuchElementException("Adapter with system pluin id " + systemPluginId + " not found.");
+        throw new NoSuchElementException("Adapter with system plugin id " + systemPluginId + " not found.");
     }
 
     private synchronized static void checkConnection() {

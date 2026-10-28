@@ -26,7 +26,7 @@ public class SettingsManager {
             try {
                 settings = SettingsLoader.loadSettings();
             } catch (SettingsLoadingException e) {
-                log.error("Error load setting, use default.");
+                log.error("Error load setting, use default.", e);
                 settings = new AppSettings();
             }
             isInited = true;

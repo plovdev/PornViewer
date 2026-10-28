@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.plovdev.pornviewer.ui.components.PornTab?>
+<?import com.plovdev.pornviewer.ui.components.*?>
 <?import javafx.scene.control.TabPane?>
 <?import java.lang.String?>
 <fx:root type="javafx.scene.control.TabPane"
@@ -14,8 +14,45 @@
         <String fx:value="porn-tab-pane"/>
     </styleClass>
 
-    <PornTab fx:id="homeTab" text="Главная"/>
-    <PornTab fx:id="modelsTab" text="Модели"/>
-    <PornTab fx:id="favoritesTab" text="Избранное"/>
-    <PornTab fx:id="downloadsTab" text="Загрузки"/>
+    <tabs>
+        <PornTab fx:id="homeTab" text="Главная">
+            <content>
+                <CardsScrollPane fx:id="homeScrollPane">
+                    <content>
+                        <CardsFlowPane fx:id="homeContainer"/>
+                    </content>
+                </CardsScrollPane>
+            </content>
+        </PornTab>
+
+        <PornTab fx:id="modelsTab" text="Модели">
+            <content>
+                <CardsScrollPane fx:id="modelsScrollPane">
+                    <content>
+                        <CardsFlowPane fx:id="modelsContainer"/>
+                    </content>
+                </CardsScrollPane>
+            </content>
+        </PornTab>
+
+        <PornTab fx:id="favoritesTab" text="Избранное">
+            <content>
+                <CardsScrollPane fx:id="favoritesScrollPane" pullOfEnable="false">
+                    <content>
+                        <CardsFlowPane fx:id="favoritesContainer"/>
+                    </content>
+                </CardsScrollPane>
+            </content>
+        </PornTab>
+
+        <PornTab fx:id="downloadsTab" text="Загрузки">
+            <content>
+                <CardsScrollPane fx:id="downloadsScrollPane" pullOfEnable="false">
+                    <content>
+                        <CardsFlowPane fx:id="downloadsContainer"/>
+                    </content>
+                </CardsScrollPane>
+            </content>
+        </PornTab>
+    </tabs>
 </fx:root>

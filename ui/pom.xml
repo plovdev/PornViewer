@@ -32,6 +32,16 @@
             <artifactId>settings</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.plovdev.pornviewer</groupId>
+            <artifactId>http</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.plovdev.pornviewer</groupId>
+            <artifactId>database</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>

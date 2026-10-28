@@ -1,7 +1,7 @@
 package com.plovdev.pornviewer.pvvasupport.loading;
 
 import com.plovdev.pornviewer.core.models.adapter.PluginsListItem;
-import com.plovdev.pornviewer.pvvasupport.PluginsUtils;
+import com.plovdev.pornviewer.pvvasupport.PluginsImportUtils;
 import com.plovdev.pornviewer.pvvasupport.exceptions.PluginLoadingException;
 import com.plovdev.pornviewer.pvvasupport.exceptions.PluginNotVerifiedException;
 import com.plovdev.pornviewer.pvvasupport.loading.validator.PluginValidator;
@@ -34,7 +34,7 @@ public class PluginLoaderImpl implements PluginLoader {
                 PluginJson pluginJson = host.pluginJson();
                 checkLoadedHost(new SignaturePluginVerifier(pluginJson.developerId()), host, pluginData);
 
-                PluginsUtils.saveDownloadedPlugin(pluginId, host, pluginData);
+                PluginsImportUtils.saveDownloadedPlugin(pluginId, host, pluginData);
                 return host;
             }
         } catch (Exception e) {
