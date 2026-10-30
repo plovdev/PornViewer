@@ -26,8 +26,8 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
-public class RequetUtils {
-    private static final Logger log = LoggerFactory.getLogger(RequetUtils.class);
+public class RequestUtils {
+    private static final Logger log = LoggerFactory.getLogger(RequestUtils.class);
 
     @Contract("_, _, _, _ -> new")
     public static @NonNull CalculatedVideoParams calculateVideoRequestParameters(HttpExchange exchange, @NonNull RequestedChunk chunk, @NonNull VideoRequestSet requestSet, long fileLength) throws IOException {

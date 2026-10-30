@@ -1,5 +1,7 @@
 package com.plovdev.pornviewer.pvvasupport.verifiers;
 
+import com.plovdev.pornviewer.settings.SettingsManager;
+
 /**
  * Верификатор плагинов при загрузке или уже загруженных адаптеров.
  */
@@ -11,9 +13,7 @@ public interface PluginVerifier {
      * @return валиден ли плагин или нет. Всегда возвращает true если проверка отключена.
      */
     default boolean checkPluginIfNeed(byte[] pluginData) {
-        // TODO: request from settings if need check plugins.
-        boolean needCheck = true;
-        //noinspection ConstantValue
+        boolean needCheck = SettingsManager.getInstance().getAppSettings().isCheckPluginSignature();
         if (needCheck) {
             return verifyPlugin(pluginData);
         } else {

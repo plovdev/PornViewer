@@ -2,7 +2,7 @@ package com.plovdev.pornviewer.server.handlers.plugins;
 
 import com.plovdev.pornviewer.core.http.HttpMethod;
 import com.plovdev.pornviewer.server.handlers.AbstractServerHandler;
-import com.plovdev.pornviewer.server.utils.RequetUtils;
+import com.plovdev.pornviewer.server.utils.RequestUtils;
 import com.plovdev.pornviewer.server.utils.ServerSendsUtils;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class PluginsHandler extends AbstractServerHandler {
     private final Map<String, PluginRequestHandler> pluginRequestHandlers;
 
@@ -24,7 +25,7 @@ public class PluginsHandler extends AbstractServerHandler {
 
     @Override
     protected void onRequest(HttpExchange exchange, URI uri, HttpMethod method, Map<String, Object> params) throws Exception {
-        String pluginPart = RequetUtils.getRequestedPath("plugins", uri);
+        String pluginPart = RequestUtils.getRequestedPath("plugins", uri);
         PluginRequestHandler handler = pluginRequestHandlers.get(pluginPart);
         if (handler != null) {
             handler.handlePluginRequest(exchange, params);

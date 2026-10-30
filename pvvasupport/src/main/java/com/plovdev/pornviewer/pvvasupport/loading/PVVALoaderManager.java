@@ -5,11 +5,16 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.plovdev.pornviewer.core.models.adapter.PluginInfo;
 import com.plovdev.pornviewer.core.models.adapter.PluginsListItem;
 import com.plovdev.pornviewer.database.tables.PluginsProvider;
+import com.plovdev.pornviewer.pvvasupport.PluginsImportUtils;
 import com.plovdev.pornviewer.services.files.PVFileManager;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.plovdev.pvva.models.PVVAHost;
+import org.plovdev.pvva.utils.MockUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 public final class PVVALoaderManager {
@@ -18,6 +23,12 @@ public final class PVVALoaderManager {
             .maximumSize(Integer.getInteger(MAX_SIZE_KEY, 10))
             .build();
     private static final PluginLoader PLUGIN_LOADER = new PluginLoaderImpl();
+    private static final PVVAHost EMPTY_HOST = MockUtils.mockPVVAHost();
+    private static final Logger log = LoggerFactory.getLogger(PVVALoaderManager.class);
+
+    static {
+        CACHED_ADAPTERS.put("default", EMPTY_HOST);
+    }
 
     private PVVALoaderManager() {
         throw new UnsupportedOperationException();
@@ -38,6 +49,12 @@ public final class PVVALoaderManager {
 
     public static void directlyLoadHost(PVVAHost host) {
         CACHED_ADAPTERS.put(host.getSystemPluginId(), host);
+    }
+
+    public static @NonNull PVVAHost importPlugin(Path pluginPath) {
+        PVVAHost host = PluginsImportUtils.importPlugin(pluginPath);
+        directlyLoadHost(host);
+        return host;
     }
 
     public static PVVAHost forceAdapter(String pluginId) {

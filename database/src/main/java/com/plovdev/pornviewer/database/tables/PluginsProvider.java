@@ -33,7 +33,7 @@ public class PluginsProvider {
         String sql = """
                 CREATE TABLE IF NOT EXISTS plugins (
                 plugin_id TEXT NOT NULL,
-                system_plugin_id TEXT NOT NULL,
+                system_plugin_id TEXT NOT NULL PRIMARY KEY,
                 developer_id TEXT NOT NULL,
                 title TEXT NOT NULL,
                 version TEXT NOT NULL,
@@ -47,8 +47,14 @@ public class PluginsProvider {
                 max_app_version INTEGER NOT NULL,
                 build_id INTEGER NOT NULL
                 )""";
+        String insertDefault = """
+                INSERT INTO plugins (plugin_id, system_plugin_id, developer_id, title, version, description, min_app_version, max_app_version, build_id)
+                VALUES ('default', 'default', 'empty', 'no title', '0', 'no description', -1, -1, 0)
+                ON CONFLICT (system_plugin_id) DO NOTHING
+                """;
         try (Statement statement = con.createStatement()) {
             statement.executeUpdate(sql);
+            statement.executeUpdate(insertDefault);
         } catch (SQLException e) {
             log.error("Error to create pvva adapters table: ", e);
             throw new PVDataBaseException("Error to create pvva adapters table");

@@ -6,7 +6,7 @@ import com.plovdev.pornviewer.server.handlers.helpers.VideoWatchHelper;
 import com.plovdev.pornviewer.server.models.CalculatedVideoParams;
 import com.plovdev.pornviewer.server.models.RequestedChunk;
 import com.plovdev.pornviewer.server.models.VideoRequestSet;
-import com.plovdev.pornviewer.server.utils.RequetUtils;
+import com.plovdev.pornviewer.server.utils.RequestUtils;
 import com.plovdev.pornviewer.server.utils.VideoRequestsCache;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -28,9 +28,9 @@ public class WatchHandler extends AbstractServerHandler {
 
     @Override
     protected void onRequest(HttpExchange exchange, URI uri, HttpMethod method, Map<String, Object> params) throws IOException {
-        String requestedWatchPart = RequetUtils.getRequestedPath("watch", uri);
+        String requestedWatchPart = RequestUtils.getRequestedPath("watch", uri);
         if (requestedWatchPart.equals(WATCH_VIDEO)) {
-            File requestedFile = RequetUtils.checkFile(exchange, (String) params.get("file"));
+            File requestedFile = RequestUtils.checkFile(exchange, (String) params.get("file"));
             VideoRequestSet requestSet = VideoRequestsCache.getRequestSet(requestedFile);
 
             if (method == HttpMethod.HEAD) {
@@ -68,7 +68,7 @@ public class WatchHandler extends AbstractServerHandler {
     }
 
     private void processGetRequest(@NonNull File requestedFile, @NonNull VideoRequestSet requestSet, @NonNull RequestedChunk chunk, @NonNull HttpExchange exchange) throws IOException {
-        CalculatedVideoParams params = RequetUtils.calculateVideoRequestParameters(exchange, chunk, requestSet, requestedFile.length());
+        CalculatedVideoParams params = RequestUtils.calculateVideoRequestParameters(exchange, chunk, requestSet, requestedFile.length());
         long contentLength = params.contentLength();
 
         exchange.getResponseHeaders().set("Content-Type", params.mime());

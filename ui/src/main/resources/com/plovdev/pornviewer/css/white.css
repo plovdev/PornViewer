@@ -18,6 +18,7 @@
 .focus-indicator {
     -fx-border-width: 0;
 }
+
 .porn-tab:selected {
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
@@ -551,4 +552,12 @@
 .context-menu.options .menu-item:focused .label,
 .context-menu.options .menu-item:hover .label {
     -fx-text-fill: #ffffff;
+}
+
+.plugin-settings {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgb(250,160,0);
+    -fx-cursor: hand;
 }

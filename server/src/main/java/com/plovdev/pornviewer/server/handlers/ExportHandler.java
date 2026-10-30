@@ -7,7 +7,7 @@ import com.plovdev.pornviewer.server.models.CalculatedVideoParams;
 import com.plovdev.pornviewer.server.models.ExportVideoRequest;
 import com.plovdev.pornviewer.server.models.RequestedChunk;
 import com.plovdev.pornviewer.server.models.VideoRequestSet;
-import com.plovdev.pornviewer.server.utils.RequetUtils;
+import com.plovdev.pornviewer.server.utils.RequestUtils;
 import com.plovdev.pornviewer.server.utils.ServerSendsUtils;
 import com.plovdev.pornviewer.server.utils.VideoRequestsCache;
 import com.plovdev.pornviewer.services.files.PVFileManager;
@@ -41,10 +41,10 @@ public class ExportHandler extends AbstractServerHandler {
         ExportVideoRequest request = JSONSerializer.deserialize(body, ExportVideoRequest.class);
         checkAndPrepareRequest(request);
 
-        File requestedFile = RequetUtils.checkFile(exchange, request.fileId());
+        File requestedFile = RequestUtils.checkFile(exchange, request.fileId());
         try (BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(request.toPath()))) {
             VideoRequestSet set = VideoRequestsCache.getRequestSet(requestedFile);
-            CalculatedVideoParams videoParams = RequetUtils.calculateVideoRequestParameters(exchange, new RequestedChunk(0, set.encryptedVideo().getVideoHeader().plainVideoSize()), set, requestedFile.length());
+            CalculatedVideoParams videoParams = RequestUtils.calculateVideoRequestParameters(exchange, new RequestedChunk(0, set.encryptedVideo().getVideoHeader().plainVideoSize()), set, requestedFile.length());
 
             VideoWatchHelper.transferEncryptedStream(requestedFile, set, videoParams.realStart(), videoParams.contentLength(), os);
             ServerSendsUtils.sendMessage(exchange, 200, formJsonInfo());
@@ -59,8 +59,9 @@ public class ExportHandler extends AbstractServerHandler {
             }
 
             Path toPath = request.preparedToPath();
-            if (Files.notExists(toPath)) {
-                Files.createDirectories(toPath);
+            Path parentDir = toPath.getParent();
+            if (parentDir != null && Files.notExists(parentDir)) {
+                Files.createDirectories(parentDir);
             }
         }
     }

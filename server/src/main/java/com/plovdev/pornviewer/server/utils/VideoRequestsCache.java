@@ -17,6 +17,6 @@ public final class VideoRequestsCache {
             .build();
 
     public static VideoRequestSet getRequestSet(File requestedFile) {
-        return CACHED_VIDEOS.get(requestedFile, RequetUtils::loadEncryptedVideo);
+        return CACHED_VIDEOS.get(requestedFile, RequestUtils::loadEncryptedVideo);
     }
 }

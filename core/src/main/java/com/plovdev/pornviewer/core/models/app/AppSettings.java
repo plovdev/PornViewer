@@ -14,16 +14,17 @@ public final class AppSettings {
     private AppUITheme theme;
     private String appPath;
     private boolean loadTrailers;
+    private boolean checkPluginSignature;
 
     public enum AppUITheme {
         BLACK, WHITE, SYSTEM
     }
 
     public AppSettings() {
-        this(new Locale.Builder().setLanguage("ru").setRegion("RU").build(), "eee82dc1d0111175e5ac30db983fcf7a6e3a0708b8a9f756a191cd7302ddb84d", AppUITheme.SYSTEM, null, false);
+        this(new Locale.Builder().setLanguage("ru").setRegion("RU").build(), "default", AppUITheme.SYSTEM, null, false, true);
     }
 
-    public AppSettings(@NonNull Locale locale, @NonNull String adapter, @NonNull AppUITheme theme, @Nullable String appPath, boolean loadTrailers) {
+    public AppSettings(@NonNull Locale locale, @NonNull String adapter, @NonNull AppUITheme theme, @Nullable String appPath, boolean loadTrailers, boolean checkPluginSignature) {
         Objects.requireNonNull(locale);
         Objects.requireNonNull(adapter);
         Objects.requireNonNull(theme);
@@ -32,6 +33,7 @@ public final class AppSettings {
         this.theme = theme;
         this.appPath = appPath;
         this.loadTrailers = loadTrailers;
+        this.checkPluginSignature = checkPluginSignature;
     }
 
     public Locale getLocale() {
@@ -72,6 +74,14 @@ public final class AppSettings {
 
     public void setLoadTrailers(boolean loadTrailers) {
         this.loadTrailers = loadTrailers;
+    }
+
+    public boolean isCheckPluginSignature() {
+        return checkPluginSignature;
+    }
+
+    public void setCheckPluginSignature(boolean checkPluginSignature) {
+        this.checkPluginSignature = checkPluginSignature;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.plovdev.pornviewer.core.models.porn.ShortVideoInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -31,15 +32,15 @@ public class VideoCardController implements ComponentController {
     @FXML
     private Label durationLabel;
 
-    @FXML
-    public void initialize() {
-        //TODO: initialize
+    public void setupUI() {
+        previewImage.setImage(new Image(videoInfo.picture().toString()));
+        titleLink.setText(videoInfo.title());
+
     }
 
     public void setData(ShortVideoInfo info) {
         this.videoInfo = info;
-
-        //TODO: fill fields
+        setupUI();
     }
 
     @FXML

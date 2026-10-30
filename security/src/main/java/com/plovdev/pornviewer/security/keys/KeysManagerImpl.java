@@ -21,6 +21,7 @@ public class KeysManagerImpl implements KeysManager {
     private static final Logger log = LoggerFactory.getLogger(KeysManagerImpl.class);
     private static final Keychain KEYCHAIN = Keychain.getKeychain(KeysManager.class);
     private static final AtomicBoolean isInited = new AtomicBoolean(false);
+    public static final KeysEncoder KEYS_ENCODER = new KeysEncoderImpl();
 
     private static final String REGISTERED_MODULES_PATH = "/registered-modules.list";
     private static final String USER_PIN_HASH_PATH = "user.pin.hash";
@@ -28,7 +29,7 @@ public class KeysManagerImpl implements KeysManager {
 
     private static List<String> registeredModules;
 
-    public static void initKeysManager() {
+    public synchronized static void initKeysManager() {
         if (!isInited.get()) {
             log.info("Collecting registered security modules...");
             try (InputStream stream = KeysManager.class.getResourceAsStream(REGISTERED_MODULES_PATH)) {
@@ -94,7 +95,7 @@ public class KeysManagerImpl implements KeysManager {
                 throw new IllegalArgumentException("App pin is blank!");
             }
             char[] appPinChars = pin.toCharArray();
-            byte[] pinHash = new KeysEncoderImpl().encode(appPinChars);
+            byte[] pinHash = KEYS_ENCODER.encode(appPinChars);
             try {
                 KEYCHAIN.setPassword(USER_PIN_HASH_PATH, pinHash);
                 log.debug("User app pin updates.");

@@ -29,7 +29,7 @@ public final class SecureDB {
         }
     }
 
-    public static synchronized @NonNull Connection initCipherer() {
+    public static @NonNull Connection initCipherer() {
         byte[] password = PVSecurityManager.getPassword(RegisteredSecurityModule.DATABASE);
         Properties props = new Properties();
         try {

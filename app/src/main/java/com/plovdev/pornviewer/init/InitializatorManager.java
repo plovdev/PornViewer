@@ -29,7 +29,7 @@ public class InitializatorManager {
 
     public void initializeApplication() {
         if (initializators.isEmpty()) {
-            log.warn("App initializators is empty");
+            log.warn("App initializators are empty");
             return;
         }
         if (listener == null) {
@@ -40,7 +40,7 @@ public class InitializatorManager {
 
         int totalValue = 0;
         try {
-            int percent = 100 / initializators.size();
+            int percent = 100 / initializators.size(); // деление без floa point для того чтобы в конце finish мог закончить status bar
             for (AppInitializator initializator : initializators) {
                 InitType result = initializator.getInitType();
                 listener.onInit(result, totalValue);
@@ -48,7 +48,7 @@ public class InitializatorManager {
                 totalValue += percent;
             }
 
-            listener.onInit(InitType.FINISH, 100);
+            listener.onInit(InitType.FINISH, 100); // Обновляем до finish в любом случае, чтобы выглядело что что то еще инициализируется.
         } catch (Exception e) {
             log.error("Error initialize app: ", e);
             listener.onInit(InitType.ERROR, totalValue);

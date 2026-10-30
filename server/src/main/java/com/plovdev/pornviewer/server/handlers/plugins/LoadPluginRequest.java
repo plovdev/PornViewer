@@ -6,7 +6,7 @@ import com.plovdev.pornviewer.database.tables.PluginsProvider;
 import com.plovdev.pornviewer.database.tables.VerifiedHashes;
 import com.plovdev.pornviewer.pvvasupport.loading.PVVALoaderManager;
 import com.plovdev.pornviewer.security.DigestUtils;
-import com.plovdev.pornviewer.server.utils.RequetUtils;
+import com.plovdev.pornviewer.server.utils.RequestUtils;
 import com.plovdev.pornviewer.server.utils.ServerSendsUtils;
 import com.plovdev.pornviewer.services.files.PVFileManager;
 import com.sun.net.httpserver.HttpExchange;
@@ -26,7 +26,7 @@ public class LoadPluginRequest implements PluginRequestHandler {
     @Override
     public void handlePluginRequest(HttpExchange exchange, @NonNull Map<String, Object> params) throws IOException {
         String fileName = (String) params.get("file");
-        File pluginFile = RequetUtils.checkFile(exchange, fileName);
+        File pluginFile = RequestUtils.checkFile(exchange, fileName);
         String absoluteFileName = pluginFile.getAbsolutePath();
         PluginsRequestsUtils.preparePlugin(absoluteFileName, pluginFile, exchange);
 

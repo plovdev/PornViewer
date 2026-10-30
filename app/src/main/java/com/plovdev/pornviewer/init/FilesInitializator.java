@@ -1,7 +1,6 @@
 package com.plovdev.pornviewer.init;
 
 import com.plovdev.pornviewer.exceptions.PornViewerInitializationException;
-import com.plovdev.pornviewer.services.files.ConfigReader;
 import com.plovdev.pornviewer.services.files.PVFileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FilesInitializator implements AppInitializator {
-    private static final Logger log = LoggerFactory.getLogger("CLEAR");
+    private static final Logger log = LoggerFactory.getLogger(FilesInitializator.class);
 
     @Override
     public InitType getInitType() {
@@ -20,8 +19,6 @@ public class FilesInitializator implements AppInitializator {
 
     @Override
     public void initialize() {
-        log.info(ConfigReader.loadAppInfo().toString());
-
         try {
             preparePath(PVFileManager.getPVBasePath(), true);
             preparePath(PVFileManager.getPvPluginsPath(), true);

@@ -30,6 +30,11 @@
             <artifactId>security</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.plovdev.pornviewer</groupId>
+            <artifactId>settings</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jsoup</groupId>

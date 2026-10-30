@@ -21,7 +21,13 @@ public final class Globals {
 
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(VIRTUAL_EXECUTOR::close));
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> SHUTDOWN_HOOKS.forEach(Runnable::run)));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> SHUTDOWN_HOOKS.forEach((hook) -> {
+            try {
+                hook.run();
+            } catch (Exception e) {
+                log.error("Error when cleanup hook: ", e);
+            }
+        })));
     }
 
     private Globals() {

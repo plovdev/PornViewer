@@ -1,7 +1,5 @@
 package com.plovdev.pornviewer.security;
 
-import com.plovdev.pornviewer.security.keys.KeysEncoder;
-import com.plovdev.pornviewer.security.keys.KeysEncoderImpl;
 import com.plovdev.pornviewer.security.keys.KeysManager;
 import com.plovdev.pornviewer.security.keys.KeysManagerImpl;
 import org.jspecify.annotations.NonNull;
@@ -12,10 +10,11 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.plovdev.pornviewer.security.keys.KeysManagerImpl.KEYS_ENCODER;
+
 public class PVSecurityManager {
     private static final Logger log = LoggerFactory.getLogger(PVSecurityManager.class);
     private static final KeysManager KEYS_MANAGER = new KeysManagerImpl();
-    private static final KeysEncoder KEYS_ENCODER = new KeysEncoderImpl();
     private static final AtomicBoolean isInited = new AtomicBoolean(false);
 
     private PVSecurityManager() {
@@ -42,7 +41,7 @@ public class PVSecurityManager {
         Optional<byte[]> userPinHash = KEYS_MANAGER.getUserPinHash();
         if (userPinHash.isPresent()) {
             byte[] pin = userPinHash.get();
-            char[] appPinChars = appPin.toCharArray();          // will be clear in KeysEncoder.
+            char[] appPinChars = appPin.toCharArray(); // will be clear in KeysEncoder.
             try {
                 return KEYS_ENCODER.verify(appPinChars, pin);
             } finally {
